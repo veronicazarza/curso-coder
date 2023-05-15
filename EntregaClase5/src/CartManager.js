@@ -26,7 +26,6 @@ export class CartManager {
     }
 
     async getById(id){
-        console.log('id '+id );
         this.carts = await this.readCarts();
         const cartFound = this.carts.find((cart) => cart.id == id);
         return cartFound??'Not found';
