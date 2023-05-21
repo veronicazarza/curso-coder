@@ -1,0 +1,42 @@
+<div>
+   <div id="div-products">
+    {{#if title}}
+      <h1>{{title}}</h1>
+    {{else}}
+      <h1>Unknown TITLE</h1>
+    {{/if}}
+    {{#each products}}
+      <p>{{this.title}}</p>
+      <p>${{this.price}}</p>
+      <hr />
+    {{/each}}
+  </div> 
+  <label for="input-title">Nombre del producto:</label><br>
+  <br>
+  <input type="text" id="input-title" placeholder="Ingrese el título del producto" style="width:350; height:20"><br>
+  <br>
+  <label for="input-description">Descripción:</label><br>
+  <br>
+  <input type="text" id="input-description" placeholder="Ingrese la descripción del producto" style="width:350; height:20"><br>
+  <br>
+  <label for="input-thumbnail">Imagen:</label><br>
+  <br>
+  <input type="text" id="input-thumbnail" placeholder="Ingrese la imagen del producto" style="width:350; height:20"><br>
+  <br>
+  <label for="input-code">Código:</label><br>
+  <br>
+  <input type="text" id="input-code" placeholder="Ingrese el código del producto" style="width:350; height:20"><br>
+  <br>
+  <label for="input-price">Precio:</label><br>
+  <br>
+  <input type="number" id="input-price" placeholder="Ingrese el precio del producto" style="width:350; height:20"><br>
+  <br>
+  <label for="input-stock">Stock:</label><br>
+  <br>
+  <input type="text" id="input-stock" placeholder="Ingrese el stock del producto" style="width:350; height:20"><br>
+  <br>
+  <input id="submit" type="submit" value="Crear producto">
+</div>
+
+<script src="/socket.io/socket.io.js"></script>
+<script src="/js/index.js"></script>
