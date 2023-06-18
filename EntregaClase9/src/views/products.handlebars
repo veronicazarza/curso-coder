@@ -1,0 +1,39 @@
+<h1>Productos</h1>
+<section>
+<div>
+    {{#each productsToShow}}
+    <div id="{{this._id}}">
+        <div>
+            <div>
+            <img src={{this.thumbnail}} alt="Imagen producto {{this.id}}">
+            </div>
+        </div>
+        <div>
+            <h2>{{this.title}}</h2>
+            <p>{{this.description}}</p>
+            <p>$ {{this.price}}</p>
+            <button >Agregar al carrito</button> 
+            <br />
+        </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+
+  <div>
+      <div> Ordenar por precio
+        <a href="?page={{paginationInfo.page}}&sort=asc">⬆️</a>
+        <a href="?page={{paginationInfo.page}}&sort=desc">⬇️</a>
+      </div>
+  </div>
+<div >
+  <div>
+    {{#if paginationInfo.hasPrevPage}}
+    <a href="?page={{paginationInfo.prevPage}}">⬅️ Anterior</a>
+    {{/if}}
+    <span>Page {{paginationInfo.page}} of {{paginationInfo.totalPages}}</span>
+    {{#if paginationInfo.hasNextPage}}
+    <a href="?page={{paginationInfo.nextPage}}">Proximo ➡️</a>
+    {{/if}}
+  </div>
+</div>
