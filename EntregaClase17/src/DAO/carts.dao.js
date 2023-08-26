@@ -1,20 +1,20 @@
-import { cartsModel } from "./models/carts.model.js";
+import { CartModel } from "./models/carts.model.js";
 
 export class CartsDao {
   constructor() {}
 
   async createCart() {
-    const newCart = await cartsModel.create({ products: [] });
+    const newCart = await CartModel.create({ products: [] });
     return newCart;
   }
 
   async getCartId(id) {
-    const cart = await cartsModel.findById(id);
+    const cart = await CartModel.findById(id);
     return cart;
   }
 
   async addProductToCart(cId, productToAdd) {
-    let cart = await cartsModel.findOneAndUpdate(
+    let cart = await CartModel.findOneAndUpdate(
       { _id: cId, "products.product": productToAdd._id },
       {
         $inc: { "products.$.quantity": 1 },
@@ -22,7 +22,7 @@ export class CartsDao {
     );
 
     if (!cart) {
-      cart = await cartsModel.findByIdAndUpdate(cId, {
+      cart = await CartModel.findByIdAndUpdate(cId, {
         $push: { products: { product: productToAdd._id, quantity: 1 } },
       });
     }
@@ -41,7 +41,7 @@ export class CartsDao {
   }
 
   async findByIdAndUpdate(cId, newCartProducts) {
-    const cart = await cartsModel.findByIdAndUpdate(cId, {
+    const cart = await CartModel.findByIdAndUpdate(cId, {
       products: newCartProducts,
     });
 
@@ -49,7 +49,7 @@ export class CartsDao {
   }
 
   async deleteProductFromCart(cId, productToDelete) {
-    const cart = await cartsModel.findOneAndUpdate(
+    const cart = await CartModel.findOneAndUpdate(
       { _id: cId, "products.product": productToDelete._id },
       {
         $inc: { "products.$.quantity": -1 },
@@ -61,7 +61,7 @@ export class CartsDao {
     );
 
     if (cart.products[findIndexArray].quantity <= 1) {
-      await cartsModel.findByIdAndUpdate(cId, {
+      await CartModel.findByIdAndUpdate(cId, {
         $pull: { products: { product: productToDelete._id } },
       });
     }

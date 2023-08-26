@@ -1,5 +1,5 @@
 import { ProductDao } from "../DAO/products.dao.js";
-import { ProductService } from "./product.service.js";
+import { ProductService } from "./products.service.js";
 import { CartsDao } from "../DAO/carts.dao.js";
 import { CartService } from "./carts.service.js";
 import { UsersDao } from "../DAO/users.dao.js";

@@ -1,5 +1,5 @@
 import ErrorCustom from "./errors/ErrorCustom.js";
-import { reasonProductError } from "./errors/reasonErrors.js";
+import { reasonProductError } from "../services/errors/reasonsErrors.js";
 import EnumsErrors from "./errors/EnumsErrors.js";
 
 export class ProductService {

@@ -1,6 +1,6 @@
 import { productService, ticketService } from "./index.js";
-import ErrorCustom from "errors/ErrorCustom.js";
-import EnumsErrors from "errors/EnumsErrors.js";
+import ErrorCustom from "./errors/ErrorCustom.js";
+import EnumsErrors from "./errors/EnumsErrors.js";
 
 export class CartService {
   constructor(dao) {

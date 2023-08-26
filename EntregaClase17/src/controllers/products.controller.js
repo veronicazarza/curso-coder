@@ -1,9 +1,9 @@
-import { ProductService } from "../services/index.js";
+import { productService } from "../services/index.js";
 
 export class ProductController {
   async getProducts(req, res, next) {
     try {
-      const allProducts = await ProductService.getProducts(req.query);
+      const allProducts = await productService.getProducts(req.query);
 
       res.status(200).send({
         payload: allProducts.docs.map((product) => ({
@@ -32,7 +32,7 @@ export class ProductController {
   async getProductById(req, res, next) {
     try {
       let pid = req.params.pid;
-      const findProduct = await ProductService.getProductById(pid);
+      const findProduct = await productService.getProductById(pid);
       res.status(200).send({ status: "success", data: findProduct });
     } catch (error) {
       next(error);
@@ -43,7 +43,7 @@ export class ProductController {
     let updateProductClient = req.body;
     let pid = req.params.pid;
     try {
-      const updateProduct = await ProductService.updateProduct(
+      const updateProduct = await productService.updateProduct(
         pid,
         updateProductClient
       );
@@ -56,7 +56,7 @@ export class ProductController {
   async addProduct(req, res, next) {
     let newProduct = req.body;
     try {
-      const addProduct = await ProductService.addProduct(newProduct);
+      const addProduct = await productService.addProduct(newProduct);
       res.status(201).send({ status: "success", data: addProduct });
     } catch (error) {
       next(error);
@@ -66,7 +66,7 @@ export class ProductController {
   async deleteProduct(req, res, next) {
     let pid = req.params.pid;
     try {
-      const deleteProduct = await ProductService.deleteProduct(pid);
+      const deleteProduct = await productService.deleteProduct(pid);
       res.status(200).send({
         status: "success",
         data: "El producto eliminado es:" + deleteProduct,

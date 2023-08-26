@@ -1,20 +1,20 @@
-import { userModel } from "./models/users.model.js";
+import { UserModel } from "./models/users.model.js";
 
 export class UsersDao {
   constructor() {}
 
   async getAllUsers() {
-    const users = await userModel.find();
+    const users = await UserModel.find();
     return users;
   }
 
   async createUser(user) {
-    const newUser = await userModel.create(user);
+    const newUser = await UserModel.create(user);
     return newUser;
   }
 
   async updateUser(id, userToReplace) {
-    let updatedUser = await userModel.findByIdAndUpdate(
+    let updatedUser = await UserModel.findByIdAndUpdate(
       { _id: id },
       userToReplace
     );
@@ -22,7 +22,7 @@ export class UsersDao {
   }
 
   async deleteUser(id) {
-    let deletedUser = await userModel.findByIdAndDelete({ _id: id });
+    let deletedUser = await UserModel.findByIdAndDelete({ _id: id });
     return deletedUser;
   }
 }

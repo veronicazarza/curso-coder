@@ -4,6 +4,8 @@ import GitHubStrategy from "passport-github2";
 import { UserModel } from "../DAO/models/users.model.js";
 import { GITHUB_SECRET } from "./env.js";
 import { createHash } from "../utils/bcrypt.js"
+import local from 'passport-local';
+const LocalStrategy = local.Strategy;
 
 export function iniPassport() {
 	passport.use(
