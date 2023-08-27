@@ -1,0 +1,61 @@
+<div >
+        {{#if session}}
+        <p >Bienvenid@ {{session.firstName}}</p>
+        <h2 >Profile</h2>
+        <div class="text-center">
+            <div>
+                <p>Name: {{session.firstName}} {{session.lastName}}</p>
+                <p>Email: {{session.email}}</p>
+                {{#if session.role}}
+                <p>Rol: Admin</p>
+                {{else}}
+                <p>Rol: Usuario</p>
+                {{/if}}
+            </div>
+        </div>
+        <a href='/logout'>logout</a>
+        {{else}}
+            <p>Bienvenido</p>
+            <a href="/?login=true" class="btn btn-primary">LOGIN</a>
+            <a href="/?register=true" class="btn btn-warning">REGISTER</a>
+        {{/if}}
+    </div>
+<h1>Productos</h1>
+<section>
+<div>
+    {{#each productsToShow}}
+    <div id="{{this._id}}">
+        <div>
+            <div>
+            <img src={{this.thumbnail}} alt="Imagen producto {{this.id}}">
+            </div>
+        </div>
+        <div>
+            <h2>{{this.title}}</h2>
+            <p>{{this.description}}</p>
+            <p>$ {{this.price}}</p>
+            <button >Agregar al carrito</button> 
+            <br />
+        </div>
+    </div>
+    {{/each}}
+  </div>
+</section>
+
+  <div>
+      <div> Ordenar por precio
+        <a href="?page={{paginationInfo.page}}&sort=asc">⬆️</a>
+        <a href="?page={{paginationInfo.page}}&sort=desc">⬇️</a>
+      </div>
+  </div>
+<div >
+  <div>
+    {{#if paginationInfo.hasPrevPage}}
+    <a href="?page={{paginationInfo.prevPage}}">⬅️ Anterior</a>
+    {{/if}}
+    <span>Page {{paginationInfo.page}} of {{paginationInfo.totalPages}}</span>
+    {{#if paginationInfo.hasNextPage}}
+    <a href="?page={{paginationInfo.nextPage}}">Proximo ➡️</a>
+    {{/if}}
+  </div>
+</div>
