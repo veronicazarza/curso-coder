@@ -1,0 +1,130 @@
+paths:
+  /api/products:
+    get:
+      summary: Obtiene todos los productos
+      tags:
+        - Products
+      responses:
+        "200":
+          description: "Los productos fueron encontrados exitosamente"
+        "404":
+          description: "Productos no encontrados"
+    post:
+      summary: Agrega un nuevo producto
+      tags:
+        - Products
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Product"
+      responses:
+        "201":
+          description: "Producto agregado correctamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "401":
+          description: "No autorizado"
+
+  /api/products/{pid}:
+    get:
+      summary: Obtiene un producto por su ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          description: ID del producto que se busca
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Se encontró el producto"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: "Producto no encontrado"
+
+    put:
+      summary: Actualiza producto por ID
+      tags:
+        - Products
+      parameters:
+        - name: pid
+          in: path
+          description: ID del producto que se busca actualizar
+          required: true
+          schema:
+            type: string
+        - name: body
+          in: body
+          description: Datos del producto a actualizar
+          required: true
+          schema:
+            $ref: "#/components/schemas/Product"
+      security:
+        - adminAuth: []
+      responses:
+        "200":
+          description: "Producto actualizado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Product"
+        "404":
+          description: "Producto no encontrado"
+
+components:
+  schemas:
+    Product:
+      type: object
+      properties:
+        name:
+          type: string
+          maxLength: 100
+        description:
+          type: string
+          maxLength: 100
+        price:
+          type: number
+        stock:
+          type: number
+        thumbnails:
+          type: array
+          items:
+            type: string
+        status:
+          type: boolean
+        code:
+          type: string
+          maxLength: 100
+          unique: true
+        category:
+          type: string
+          maxLength: 100
+      required:
+        - name
+        - description
+        - price
+        - stock
+        - thumbnails
+        - status
+        - code
+        - category
+
+      example:
+        name: "Producto"
+        description: "Este es un ejemplo"
+        price: 00.00
+        stock: 001
+        thumbnails:
+          - "muestra"
+        status: true
+        code: "ABC123"
+        category: "Categoría"

@@ -1,0 +1,205 @@
+paths:
+  /carts:
+    post:
+      summary: Crea un nuevo carrito
+      tags:
+        - Carts
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/Cart"
+      responses:
+        "201":
+          description: "Carrito creado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "400":
+          description: "Solicitud incorrecta"
+
+  /carts/{cid}:
+    get:
+      summary: Obtiene un carrito por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito que se busca
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Carrito obtenido exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: "Carrito no encontrado"
+
+    put:
+      summary: Actualiza carrito por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito que se busca actualizar
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CartUpdate"
+      responses:
+        "200":
+          description: "Carrito actualizado exitosamente"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Cart"
+        "404":
+          description: "Carrito no encontrado"
+
+    delete:
+      summary: Elimina un carrito por ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito que se busca eliminar
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: "Carrito eliminado exitosamente"
+        "404":
+          description: "Carrito no encontrado"
+
+  /carts/{cid}/product/{pid}:
+    post:
+      summary: Agrega un producto a un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito al que se busca agregar el producto
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto que se busca agregar al carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Producto agregado al carrito exitosamente"
+        "404":
+          description: "Carrito no encontrado"
+
+    put:
+      summary: Actualiza la cantidad de un producto en un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito al que se busca actualizar la cantidad del producto
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto cuya cantidad se busca actualizar en el carrito
+          required: true
+          schema:
+            type: string
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                quantity:
+                  type: number
+              required:
+                - quantity
+      responses:
+        "200":
+          description: "El carrito actualizada exitosamente"
+        "404":
+          description: "Carrito no encontrado"
+
+    delete:
+      summary: Elimina un producto de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito al que se busca eliminar el producto
+          required: true
+          schema:
+            type: string
+        - name: pid
+          in: path
+          description: ID del producto que se busca eliminar del carrito
+          required: true
+          schema:
+            type: string
+      responses:
+        "204":
+          description: "Producto eliminado del carrito exitosamente"
+        "404":
+          description: "Carrito no encontrado"
+
+  /carts/{cid}/purchase:
+    post:
+      summary: Realiza la compra de un carrito por su ID
+      tags:
+        - Carts
+      parameters:
+        - name: cid
+          in: path
+          description: ID del carrito que se busca comprar
+          required: true
+          schema:
+            type: string
+      responses:
+        "200":
+          description: "Compra realizada exitosamente"
+        "404":
+          description: "Carrito no encontrado"
+
+components:
+  schemas:
+    Cart:
+      type: object
+      properties:
+        products:
+          type: array
+          items:
+            type: object
+            properties:
+              product:
+                type: string
+              quantity:
+                type: number
+              required:
+                - true
+      required:
+        - products
